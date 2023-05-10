@@ -78,8 +78,9 @@ public class BoardService {
         isBoardUser(user, board);
 
         if(!imageFile.isEmpty()){
-            s3Uploader.delete(board.getImage());
-            String storedFileName = s3Uploader.upload(imageFile);
+//            s3Uploader.delete(board.getImage());
+//            String storedFileName = s3Uploader.upload(imageFile);
+            String storedFileName = s3Uploader.update(board.getImage(), imageFile);
             board.setImage(storedFileName);
         }
         board.update(boardRequestDto);

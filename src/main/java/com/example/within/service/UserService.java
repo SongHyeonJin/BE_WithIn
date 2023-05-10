@@ -117,8 +117,9 @@ public class UserService {
         //User 클래스의 username 속성을 userPageRequestDto의 username값으로 설정
         userUpdate.setUsername(userPageRequestDto.getUsername());
         if(!imageFile.isEmpty()){
-            s3Uploader.delete(userUpdate.getImg());
-            String storedFileName = s3Uploader.upload(imageFile);
+//            s3Uploader.delete(userUpdate.getImg());
+//            String storedFileName = s3Uploader.upload(imageFile);
+            String storedFileName = s3Uploader.update(userUpdate.getImg(), imageFile);
             userUpdate.setImg(storedFileName);
         }
 
