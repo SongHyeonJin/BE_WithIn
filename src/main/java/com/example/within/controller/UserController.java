@@ -38,7 +38,7 @@ public class UserController {
 
     @GetMapping("/members")
     public Page<UserResponseDto> getUserList(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                             @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){
+                                             @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){
         return userService.getUserList(userDetails.getUser(), pageable);
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     @PutMapping(value = "/members/{userId}", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateUserInfo(@PathVariable Long userId,
                                             @RequestPart UserPageRequestDto userPageRequestDto,
-                                            @RequestPart("imageFile") MultipartFile imageFile,
+                                            @RequestPart(value = "imageFile", required = false) MultipartFile imageFile,
                                             @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
          return userService.updateUserInfo(userId, userPageRequestDto, userDetails.getUser(), imageFile);
     }
