@@ -32,15 +32,21 @@ public class S3Uploader {
         return amazonS3.getUrl(bucket, fileName).toString();
     }
 
-    public boolean delete(String fileUrl) {
+    public void delete(String fileUrl) {
         try {
             String[] temp = fileUrl.split("/");
             String fileKey = temp[temp.length-1];
             amazonS3.deleteObject(bucket, fileKey);
-            return true;
-        } catch (Exception e) {
-            return false;
+        } catch (Exception ignored) {
         }
+    }
+
+    public String update(String oldFile, MultipartFile newFile) throws IOException {
+        // 기존 파일 삭제
+        delete(oldFile);
+
+        // 새로운 파일 업로드
+        return upload(newFile);
     }
 }
 
